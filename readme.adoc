@@ -45,6 +45,10 @@ Step 8: Now run the command:
 java -Djava.library.path=. -cp target/modbus-client-1.0-SNAPSHOT.jar:. com.example.modbus.ModbusClientExample
 ```
 
+== Simulation
+
+Also supplied in this repository is a web-based ship simulation that can be used to prove that the malware works in a maritime setting.
+
 === Things to improve upon:
 
 This malware currently requires the model files located within the `models/` directory to perform any action.
