@@ -1,0 +1,8 @@
+= Backend
+
+The backend system can be divided into two main sections.
+
+One is a flask route which serves the HTML site.
+The other serves as a glue between the frontend and OpenPLC.
+
+

@@ -1,0 +1,71 @@
+protocol: ModBus
+variables:
+  - name: temp_threshold_reached 
+    address: 7
+    type: discrete_output_coils
+  - name: LOW_FUEL_THRESHOLD 
+    address: 2050
+    type: holding_registers        
+  - name: HIGH_TEMP_THRESHOLD
+    address: 2052
+    type: holding_registers
+  - name: HIGH_PRESSURE_THRESHOLD
+    address: 2054   
+    type: holding_registers
+  - name: LOW_POWER_THRESHOLD
+    address: 2058      
+    type: holding_registers
+  - name: HIGH_RPM_THRESHOLD
+    address: 2060     
+    type: holding_registers
+  - name: MAX_SPEED
+    address: 2062          
+    type: holding_registers      
+  - name: pump_state 
+    address: 0
+    type: discrete_output_coils        
+  - name: high_temp_alarm 
+    address: 1
+    type: discrete_output_coils   
+  - name: low_fuel_alarm
+    address: 2    
+    type: discrete_output_coils   
+  - name: high_pressure_alarm
+    address: 3
+    type: discrete_output_coils
+  - name: low_power_alarm
+    address: 4
+    type: discrete_output_coils
+  - name: over_rpm_alarm
+    address: 5
+    type: discrete_output_coils
+  - name: speed_warning
+    address: 6
+    type: discrete_output_coils     
+  - name: fuel_level AT 
+    address: 2064          
+    type: holding_registers  
+  - name: fuel_temp
+    address: 2066
+    type: holding_registers
+  - name: fuel_pressure
+    address: 2068
+    type: holding_registers        
+  - name: start_pump
+    address: 8
+    type: discrete_output_coils         
+  - name: stop_pump
+    address: 9
+    type: discrete_output_coils          
+  - name: engine_power
+    address: 2072    
+    type: holding_registers
+  - name: engine_rpm
+    address: 2074
+    type: holding_registers
+  - name: vessel_heading
+    address: 2076
+    type: holding_registers
+  - name: vessel_speed
+    address: 2078
+    type: holding_registers

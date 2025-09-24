@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compass and Speedometer with Engine Data</title>
+    <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
+    <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+</head>
+<body>
+
+    <div style="display: flex; justify-content: space-around;">
+        <!-- Compass (Navigation) -->
+        <div>
+        <h3 style="text-align: center;">Compass</h3>
+        <div id="compass" style="height: 300px; width: 300px;"></div>
+        </div>
+        <!-- Speedometer -->
+        <div>
+        <h3 style="text-align: center;">Speed</h3>
+        <div id="speedometer" style="height: 300px; width: 300px;"></div>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-around; margin-top: 50px;">
+        <!-- Fuel Consumption Rate -->
+        <div>
+        <h3 style="text-align: center;">Fuel Consumption Rate</h3>
+        <div id="fuelGauge" style="height: 300px; width: 300px;"></div>
+        </div>
+
+        <!-- Temperature High Alarm and Engine Power -->
+        <div>
+        <h3 style="text-align: center;">Temperature</h3>
+        <div id="temperatureAlarm" style="height: 300px; width: 300px;"></div>
+        </div>
+        <!-- Engine Power Settings -->
+        <div>
+        <h3 style="text-align: center;">Engine Power</h3>
+        <div id="enginePower" style="height: 300px; width: 300px;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Compass Circular Gauge with Red Top Arrow and Grey Bottom Arrow
+        var compassGauge = new ej.circulargauge.CircularGauge({
+            axes: [{
+                minimum: 0,
+                maximum: 360,
+                startAngle: 0,
+                endAngle: 360,
+                radius: '100%',
+                lineStyle: { width: 2, color: '#8c8c8c' },
+                majorTicks: { interval: 45 },  // Divides the compass into 45-degree increments
+                minorTicks: { interval: 10 },
+                pointers: [{
+                    // Red Top Arrow
+                    value: 90,  // default direction (East)
+                    radius: '80%',
+                    pointerWidth: 6,
+                    color: 'red',
+                    cap: { radius: 10 },  // Central cap for the needle
+                    needleTail: { length: '0%' }  // Remove tail for top part
+                }, {
+                    // Grey Bottom Arrow (Using needleTail)
+                    value: 270,  // Aligns with the top arrow
+                    radius: '60%',
+                    pointerWidth: 6,
+                    color: 'grey',
+                    cap: { radius: 0 },  // Remove cap for the tail
+                    needleTail: { length: '20%', color: 'grey' }
+                }],
+                annotations: [
+                    // North
+                    { angle: 0, radius: '100%', content: '<div style="color:#000;font-weight:bold;font-size:18px;">N</div>' },
+                    // East
+                    { angle: 90, radius: '100%', content: '<div style="color:#000;font-weight:bold;font-size:18px;">E</div>' },
+                    // South
+                    { angle: 180, radius: '100%', content: '<div style="color:#000;font-weight:bold;font-size:18px;">S</div>' },
+                    // West
+                    { angle: 270, radius: '100%', content: '<div style="color:#000;font-weight:bold;font-size:18px;">W</div>' }
+                ]
+            }]
+        });
+        compassGauge.appendTo('#compass');
+
+        // Speedometer Circular Gauge
+        var speedometerGauge = new ej.circulargauge.CircularGauge({
+            axes: [{
+                minimum: 0,
+                maximum: 200,
+                lineStyle: { width: 2, color: '#8c8c8c' },
+                majorTicks: { interval: 20 },
+                minorTicks: { interval: 10 },
+                pointers: [{
+                    value: 60,  // default speed
+                    radius: '80%',
+                    cap: { radius: 10 },
+                    needleTail: { length: '20%' }
+                }],
+                ranges: [
+                    { start: 0, end: 60, color: '#30b32d' },  // green range
+                    { start: 60, end: 120, color: '#ffdd00' },  // yellow range
+                    { start: 120, end: 200, color: '#f03e3e' }  // red range
+                ]
+            }]
+        });
+        speedometerGauge.appendTo('#speedometer');
+
+        // Fuel Consumption Rate Circular Gauge
+        var fuelGauge = new ej.circulargauge.CircularGauge({
+            axes: [{
+                minimum: 0,
+                maximum: 100,
+                lineStyle: { width: 2, color: '#8c8c8c' },
+                majorTicks: { interval: 20 },
+                minorTicks: { interval: 10 },
+                pointers: [{
+                    value: 50,  // default fuel consumption rate
+                    radius: '70%',
+                    cap: { radius: 8 },
+                    needleTail: { length: '10%' }
+                }],
+                ranges: [
+                    { start: 0, end: 30, color: '#30b32d' },  // Normal fuel range
+                    { start: 30, end: 70, color: '#ffdd00' },  // Medium consumption range
+                    { start: 70, end: 100, color: '#f03e3e' }  // High fuel consumption
+                ]
+            }]
+        });
+        fuelGauge.appendTo('#fuelGauge');
+
+        // Temperature High Alarm Gauge
+        var tempAlarmGauge = new ej.circulargauge.CircularGauge({
+            axes: [{
+                minimum: 0,
+                maximum: 100,
+                lineStyle: { width: 2, color: '#8c8c8c' },
+                majorTicks: { interval: 20 },
+                minorTicks: { interval: 10 },
+                pointers: [{
+                    value: 85,  // High temperature threshold
+                    radius: '70%',
+                    cap: { radius: 8, color: 'red' },
+                    needleTail: { length: '10%' }
+                }],
+                ranges: [
+                    { start: 0, end: 60, color: '#30b32d' },  // Normal temperature range
+                    { start: 60, end: 80, color: '#ffdd00' },  // Medium temperature range
+                    { start: 80, end: 100, color: '#f03e3e' }  // High temperature (alarm)
+                ]
+            }]
+        });
+        tempAlarmGauge.appendTo('#temperatureAlarm');
+
+        // Engine Power Settings Gauge
+        var enginePowerGauge = new ej.circulargauge.CircularGauge({
+            axes: [{
+                minimum: 0,
+                maximum: 100,
+                lineStyle: { width: 2, color: '#8c8c8c' },
+                majorTicks: { interval: 20 },
+                minorTicks: { interval: 10 },
+                pointers: [{
+                    value: 75,  // default engine power
+                    radius: '80%',
+                    cap: { radius: 10 },
+                    needleTail: { length: '20%' }
+                }],
+                ranges: [
+                    { start: 0, end: 40, color: '#30b32d' },  // Low power range
+                    { start: 40, end: 70, color: '#ffdd00' },  // Medium power range
+                    { start: 70, end: 100, color: '#f03e3e' }  // High power range
+                ]
+            }]
+        });
+        enginePowerGauge.appendTo('#enginePower');
+
+    </script>
+
+</body>
+</html>
